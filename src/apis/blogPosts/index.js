@@ -124,13 +124,13 @@ blogPostsRouter.get("/:blogPostId/comments", async (req, res, next) => {
 blogPostsRouter.post("/:blogPostId/comments", async (req, res, next) => {
   try {
     const blogPosts = await getBlogPosts();
-    const newBlogComment = { ...req.body, id: uniqid(), createdAt: new Date() };
+    const newBlogComment = { ...req.body, createdAt: new Date() };
     const foundBlogPost = blogPosts.find(
-      (blog) => blog._id === req.params.blogPostId
+      (blogPost) => blogPost.id === req.params.blogPostId
     );
     if (foundBlogPost) {
       foundBlogPost.comments.push(newBlogComment);
-      writeBlogs(blogPosts);
+      await writeBlogPosts(blogPosts);
       res.send(newBlogComment);
     } else {
       next(
@@ -144,5 +144,4 @@ blogPostsRouter.post("/:blogPostId/comments", async (req, res, next) => {
     next(error);
   }
 });
-
 export default blogPostsRouter;

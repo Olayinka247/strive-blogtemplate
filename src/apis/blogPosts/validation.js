@@ -48,12 +48,12 @@ const blogPostsSchema = {
       errorMessage: "Name is a mandatory field and needs to be a string!",
     },
 
-    "author.avatar": {
-      in: ["body"],
-      isString: {
-        errorMessage: "Avatar is a mandatory field and needs to be in URL!",
-      },
-    },
+    // "author.avatar": {
+    //   in: ["body"],
+    //   isString: {
+    //     errorMessage: "Avatar is a mandatory field and needs to be in URL!",
+    //   },
+    // },
   },
 };
 

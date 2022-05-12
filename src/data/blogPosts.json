@@ -8,12 +8,7 @@
       "name": "Land King",
       "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
     },
-    "comment": [
-      {
-        "name": "",
-        "comment": ""
-      }
-    ],
+    "comments": [],
     "content": "BLOG",
     "id": "3v7oqgdg8cl31n2lnn",
     "createdAt": "2022-05-11T13:50:11.747Z"
@@ -27,10 +22,12 @@
       "name": "Land King",
       "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
     },
-    "comment": [
+    "comments": [
       {
-        "name": "",
-        "comment": ""
+        "name": "Micheal",
+        "comment": "Veri nice book , should read again",
+        "id": "3v7oqgdky4l335g0l8",
+        "createdAt": "2022-05-12T15:12:16.891Z"
       }
     ],
     "content": "BLOG",
@@ -46,12 +43,7 @@
       "name": "Land King",
       "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
     },
-    "comment": [
-      {
-        "name": "",
-        "comment": ""
-      }
-    ],
+    "comment": [],
     "content": "BLOG",
     "id": "3v7oqgdg8cl31n2zlz",
     "createdAt": "2022-05-11T13:50:29.831Z"
@@ -65,12 +57,7 @@
       "name": "Land King",
       "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
     },
-    "comment": [
-      {
-        "name": "",
-        "comment": ""
-      }
-    ],
+    "comment": [],
     "content": "BLOG",
     "id": "3v7oqgdg8cl31n306l",
     "createdAt": "2022-05-11T13:50:30.573Z"
@@ -84,12 +71,7 @@
       "name": "Land King",
       "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
     },
-    "comment": [
-      {
-        "name": "",
-        "comment": ""
-      }
-    ],
+    "comment": [],
     "content": "BLOG",
     "id": "3v7oqgdg8cl31n30q2",
     "createdAt": "2022-05-11T13:50:31.274Z",
@@ -104,12 +86,7 @@
       "name": "Land King",
       "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
     },
-    "comment": [
-      {
-        "name": "",
-        "comment": ""
-      }
-    ],
+    "comment": [],
     "content": "BLOG",
     "id": "3v7oqgdg8cl31n313w",
     "createdAt": "2022-05-11T13:50:31.772Z"
@@ -123,12 +100,7 @@
       "name": "Land King",
       "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
     },
-    "comment": [
-      {
-        "name": "",
-        "comment": ""
-      }
-    ],
+    "comment": [],
     "content": "BLOG",
     "id": "3v7oqgdg8cl31n31fq",
     "createdAt": "2022-05-11T13:50:32.198Z"
@@ -142,12 +114,7 @@
       "name": "Land King",
       "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
     },
-    "comments": [
-      {
-        "name": "",
-        "comment": ""
-      }
-    ],
+    "comments": [],
     "content": "BLOG",
     "id": "3v7oqgdg8cl31n31pv",
     "createdAt": "2022-05-11T13:50:32.563Z"
