@@ -97,5 +97,52 @@ blogPostsRouter.delete("/:blogPostId", async (req, res, next) => {
     next(error);
   }
 });
+// **********GET BLOG WITH COMMENT BY ID***************
+
+blogPostsRouter.get("/:blogPostId/comments", async (req, res, next) => {
+  try {
+    const blogPosts = await getBlogPosts();
+    const foundBlogPost = blogPosts.find(
+      (blogPost) => blogPost.id === req.params.blogPostId
+    );
+    if (foundBlogPost) {
+      res.send(foundBlogPost.comments);
+    } else {
+      next(
+        createError(
+          404,
+          `Posted comment with id ${req.params.blogPostId} not found`
+        )
+      );
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+//************* POST BLOG WITH COMMENT BY ID*/
+blogPostsRouter.post("/:blogPostId/comments", async (req, res, next) => {
+  try {
+    const blogPosts = await getBlogPosts();
+    const newBlogComment = { ...req.body, id: uniqid(), createdAt: new Date() };
+    const foundBlogPost = blogPosts.find(
+      (blog) => blog._id === req.params.blogPostId
+    );
+    if (foundBlogPost) {
+      foundBlogPost.comments.push(newBlogComment);
+      writeBlogs(blogPosts);
+      res.send(newBlogComment);
+    } else {
+      next(
+        createError(
+          404,
+          `Posted comment with id ${req.params.blogPostId} not found`
+        )
+      );
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default blogPostsRouter;
