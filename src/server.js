@@ -15,8 +15,6 @@ const server = express();
 
 const port = 3001;
 
-const publicFolderPath = join(process.cwd(), "./public");
-
 server.use(cors());
 server.use(express.json());
 
