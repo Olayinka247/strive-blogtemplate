@@ -1,7 +1,12 @@
 import express from "express";
 import uniqid from "uniqid";
+import multer from "multer";
 
-import { getAuthors, writeAuthors } from "../../lib/fs-tools.js";
+import {
+  getAuthors,
+  writeAuthors,
+  saveAuthorsAvatars,
+} from "../../lib/fs-tools.js";
 
 const authorsRouter = express.Router();
 
@@ -69,5 +74,41 @@ authorsRouter.delete("/:authorId", async (req, res) => {
     console.log("error");
   }
 });
+
+//***********POST IMAGE AVATAR ************* */
+
+authorsRouter.post(
+  "/:authorId/avatar",
+  multer({
+    fileFilter: (req, file, multerNext) => {
+      if (file.mimetype !== "image/jpeg/" && file.mimetype !== "image/png") {
+        multerNext(createError(400, "Image must be jpeg or png format only !"));
+      } else {
+        multerNext(null, true);
+      }
+    },
+    limits: { fileSize: 1024 * 1024 * 5 },
+  }).single("cover"),
+  async (req, res, next) => {
+    try {
+      const url = saveAuthorsAvatars(req.file.originalname, req.file.buffer);
+      const authors = await getAuthors();
+      const Indexauthor = authors.findIndex(
+        (author) => author.id === req.params.authorId
+      );
+      if (Indexauthor !== -1) {
+        const oldAuthor = authors[Indexauthor];
+        const newAuthor = { ...oldAuthor, avatar: url, updatedAt: new Date() };
+        authors[Indexauthor] = newAuthor;
+        await writeAuthors(authors);
+        res.send(newAuthor);
+      } else {
+        next(createError(404, "Can't find the Author"));
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 export default authorsRouter;
