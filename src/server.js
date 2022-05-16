@@ -15,6 +15,9 @@ const server = express();
 
 const port = 3001;
 
+const publicFolderPath = join(process.cwd(), "./public");
+server.use(express.static(publicFolderPath));
+
 server.use(cors());
 server.use(express.json());
 
@@ -22,6 +25,7 @@ server.use("/authors", authorsRouter);
 server.use("/blogPosts", blogPostsRouter);
 
 // *****************Error Handlers*****************
+
 server.use(badRequestHandler);
 server.use(unauthorizedHandler);
 server.use(notFoundHandler);

@@ -1,6 +1,7 @@
 import express from "express";
 import uniqid from "uniqid";
 import multer from "multer";
+import createError from "http-errors";
 
 import {
   getAuthors,
@@ -10,7 +11,7 @@ import {
 
 const authorsRouter = express.Router();
 
-authorsRouter.post("/", async (req, res) => {
+authorsRouter.post("/", async (req, res, next) => {
   try {
     const newAuthor = { ...req.body, id: uniqid(), createdAt: new Date() };
     const authors = await getAuthors();
@@ -18,7 +19,7 @@ authorsRouter.post("/", async (req, res) => {
     await writeAuthors(authors);
     res.send(201).send({ id: newAuthor.id });
   } catch (error) {
-    console.log("error");
+    next("error");
   }
 });
 
@@ -76,5 +77,40 @@ authorsRouter.delete("/:authorId", async (req, res) => {
 });
 
 //***********POST IMAGE AVATAR ************* */
+authorsRouter.post(
+  "/:authorId/avatar",
+  multer({
+    fileFilter: (req, file, multerNext) => {
+      if (file.mimetype !== "image/jpeg") {
+        multerNext(createError(400, "Only jpeg allowed!"));
+      } else {
+        multerNext(null, true);
+      }
+    },
+  }).single("avatar"),
+  async (req, res, next) => {
+    try {
+      const url = await saveAuthorsAvatars(
+        req.file.originalname,
+        req.file.buffer
+      );
+      const authors = await getAuthors();
+      const authorIndex = authors.findIndex(
+        (author) => author.id === req.params.authorId
+      );
+      if (authorIndex !== -1) {
+        const oldAuthor = authors[authorIndex];
+        const newAuthor = { ...oldAuthor, avatar: url, updatedAt: new Date() };
+        authors[authorIndex] = newAuthor;
+        await writeAuthors(authors);
+        res.send(newAuthor);
+      } else {
+        next(createError(404, "No Author Found !"));
+      }
+    } catch (error) {
+      next("error");
+    }
+  }
+);
 
 export default authorsRouter;
