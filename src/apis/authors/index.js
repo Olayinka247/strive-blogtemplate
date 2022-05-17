@@ -2,6 +2,8 @@ import express from "express";
 import uniqid from "uniqid";
 import multer from "multer";
 import createError from "http-errors";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 import {
   getAuthors,
@@ -10,6 +12,23 @@ import {
 } from "../../lib/fs-tools.js";
 
 const authorsRouter = express.Router();
+
+const cloudinaryUploader = multer({
+  storage: new CloudinaryStorage({
+    cloudinary,
+    params: {
+      folder: "strive/authors",
+    },
+  }),
+  fileFilter: (req, file, multerNext) => {
+    if (file.mimetype !== "image/jpeg") {
+      multerNext(createError(400, "Only jpeg allowed!"));
+    } else {
+      multerNext(null, true);
+    }
+  },
+  limits: { fileSize: 1 * 1024 * 1024 },
+}).single("avatar");
 
 authorsRouter.post("/", async (req, res, next) => {
   try {
@@ -79,34 +98,11 @@ authorsRouter.delete("/:authorId", async (req, res) => {
 //***********POST IMAGE AVATAR ************* */
 authorsRouter.post(
   "/:authorId/avatar",
-  multer({
-    fileFilter: (req, file, multerNext) => {
-      if (file.mimetype !== "image/jpeg") {
-        multerNext(createError(400, "Only jpeg allowed!"));
-      } else {
-        multerNext(null, true);
-      }
-    },
-  }).single("avatar"),
+  cloudinaryUploader,
   async (req, res, next) => {
     try {
-      const url = await saveAuthorsAvatars(
-        req.file.originalname,
-        req.file.buffer
-      );
-      const authors = await getAuthors();
-      const authorIndex = authors.findIndex(
-        (author) => author.id === req.params.authorId
-      );
-      if (authorIndex !== -1) {
-        const oldAuthor = authors[authorIndex];
-        const newAuthor = { ...oldAuthor, avatar: url, updatedAt: new Date() };
-        authors[authorIndex] = newAuthor;
-        await writeAuthors(authors);
-        res.send(newAuthor);
-      } else {
-        next(createError(404, "No Author Found !"));
-      }
+      console.log("FILE: ", req.file);
+      res.send();
     } catch (error) {
       next("error");
     }
