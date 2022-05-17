@@ -4,7 +4,7 @@
     "surname": "oloco",
     "email": "olo@sky.com",
     "date of birth": " 12-12-1999",
-    "avatar": "",
+    "avatar": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1652787057/strive/authors/uy6crulbo1ww1isn6yf1.jpg",
     "id": "3v7oqgd2e8l31iku5c",
     "createdAt": "2022-05-11T11:44:24.479Z",
     "updatedAt": "2022-05-11T11:46:04.397Z"
@@ -77,5 +77,14 @@
     "content": "BLOG",
     "id": "3v7oqgdj4gl32zwhnm",
     "createdAt": "2022-05-12T12:37:07.810Z"
+  },
+  {
+    "name": "Oroma",
+    "surname": "odo",
+    "email": "olo@me.com",
+    "date of birth": " 12-12-1980",
+    "avatar": "",
+    "id": "3v7oqgdjd8l3a313me",
+    "createdAt": "2022-05-17T11:39:04.981Z"
   }
 ]
